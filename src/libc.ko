@@ -1,0 +1,26 @@
+extern func printf(_: Str, ...) -> Int
+extern func puts(_: Str) -> Int
+extern func fgets(_: Str, count: Int, stream: *CFile) -> Str
+extern func getline(_: *Str, n: *I64, stream: *CFile) -> Int
+extern func free(ptr: VoidPtr) -> Unit
+extern func strtol(str: Str, endptr: *Str, base: Int) -> I64
+
+# TODO: Size's type should be 'size_t'.
+extern func malloc(size: I64) -> VoidPtr
+
+type CFile = I8
+type TSize = I64
+
+extern static stdout: *CFile
+extern static stdin: *CFile
+extern static stderr: *CFile
+
+# TODO: Should be 'void*'.
+type VoidPtr = *I8
+
+func string_to_int(str: Str) -> I64:
+  unsafe:
+    let end_ptr = ""
+    let int_64 = std::libc::strtol(str, &end_ptr, 10)
+
+    return int_64

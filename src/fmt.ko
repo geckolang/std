@@ -1,0 +1,38 @@
+struct String:
+  c_str: Str,
+  len: Int,
+
+impl std::fmt::String:
+  # static func empty():
+  #   return new String{"", 0}
+  ## Returns the length of the string including the
+  ## null character.
+  func true_len(this):
+    return this.len + 1
+
+func println(msg: Str):
+  unsafe:
+    std::libc::puts(msg)
+
+## Read an entire line from the `stdin` stream, including newline,
+## and the terminating null character.
+##
+## The length includes the characters read and the newline character,
+## but not the terminating null character.
+func readline():
+  unsafe:
+    # BUG: The problem is because of the size of the integer. However, cannot specify the size, seems like
+    # ... not implemented to take precedence. Also, this very comment causes an error for some reason (tokens), if
+    # ... placed on the wrong position.
+    let size: I64 = `I64 0
+
+    let c_str: Str = ""
+    let len = std::libc::getline(&c_str, &size, std::libc::stdin)
+
+    return new String{c_str, len - 1}
+
+
+func ask(question: Str):
+  unsafe: std::libc::printf("[?] %s: ", question)
+
+  return readline()

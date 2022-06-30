@@ -1,0 +1,5 @@
+#import std::fmt
+
+func print_int(int: Int):
+  unsafe:
+    std::libc::printf("Int is: %d\n", int)
